@@ -9,7 +9,8 @@ import CreateExercise from "./components/create-exercise.component";
 import CreateUser from "./components/create-user.component";
 import createbookuser from "./components/createbookuser"
 import loginbookuser from "./components/loginbookuser"
-
+import bookList from "./components/booklist";
+import createcart from "./components/createcart";
 function App() {
   /* window.addEventListener('DOMContentLoaded', function() {
 
@@ -24,6 +25,8 @@ function App() {
       <Route path="/user" component = {CreateUser}/>
       <Route path="/createbookuser" component = {createbookuser}/>
       <Route path="/login" component = {loginbookuser}/>
+      <Route path="/booklist" exact component = {bookList}/>
+      <Route path="/book/:id" component = {createcart}/>
     </Router>
   );
 }

@@ -1,3 +1,5 @@
+const bookdata = require('./book.json')
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -9,7 +11,9 @@ const session = require('express-session')
 const store = new session.MemoryStore()
 const path = require('path')
 const book = require('./models/book');
-/* const cart = require('./models/cart');  */
+const assert = require('assert');
+
+const cart = require('./models/cart');
 /* const port = process.env.PORT || 5000; */
 
 app.use(cors());
@@ -50,7 +54,23 @@ const { nextTick } = require('process');
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 
-app.listen(port, () => {console.log(`Server is running on port: ${port}`);});
+function fetchRequestCurrent(){
+  console.log("books ready")
+  book.collection.remove()
+  book.collection.insertMany(bookdata, function(err,r) {
+    assert.equal(null, err);
+    assert.equal(bookdata.length, r.insertedCount);
+    
+  })
+
+}
+app.listen(port, () => {console.log(`Server is running on port: ${port}`);
+  fetchRequestCurrent()
+});
+
+
+
+
 //create user
 app.post('/createbookuser', async (req,res) =>{
   const idNum = await bookuser.countDocuments()
@@ -92,6 +112,7 @@ app.post('/login', async (req,res) =>{
               req.session.authenticated = true
               req.session.newbookuser = newbookuser
               res.cookie('sessionID', req.session.id)
+              console.log(req.session.id)
               res.json(req.session)
               console.log("check1")
           } else {
@@ -136,6 +157,39 @@ app.post('/createbook', async (req,res) =>{
   }
 
 })
+
+
+
+app.get("/books", async (req, res) => {
+  const bookdata = await book.find()
+  /* console.log(bookdata) */
+  res.json(bookdata)
+})
+
+app.get("/book/:id", async (req, res) => {
+  const bookdata = await book.findById(req.params.id)
+  console.log('bookdata')
+  console.log(bookdata)
+  res.json(bookdata)
+})
+
+app.post('/addcart/:id', async (req, res) => {
+  const quantity = req.body.quantity;
+  book.findById(req.params.id)
+  const newExercise = new Exercise({
+    username,
+    description,
+    duration,
+    date,
+  });
+
+  newExercise.save()
+  .then(() => res.json('Exercise added!'))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+
 /* app.post('/login', async (req,res) =>{
   const bookuser = new bookuser({
     name: req.body.name,

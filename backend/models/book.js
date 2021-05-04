@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-  bookid: {
+  BookId: {
     type: String,
   },
-  bookname: {
+  BookName: {
     type: String,
   },
   Publisher: {
