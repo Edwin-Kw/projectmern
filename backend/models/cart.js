@@ -15,8 +15,6 @@ const cartSchema = new Schema({
   quantity: {
     type: Number,
   },
-}, {
-  timestamps: true,
 });
 
 const cart = mongoose.model('cart', cartSchema);

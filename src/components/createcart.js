@@ -30,30 +30,64 @@ import Image12 from './upload_image/book_12.jpg'; */
 ) */
 
 export default class createcart extends Component {
+    
   constructor(props) {
     super(props);
 
     this.srcvalue = ""
     this.arrival = ""
-    this.cart = {cart :[]}
-    this.state = {book: []};
+    this.book = {book :[]}
+    this.state = {book :[], currentUser: []};
+    this.quantity = 0
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChangequantity = this.onChangequantity.bind(this);
+    
   }
 
   componentDidMount() {
     console.log(this.props.match.params.id);
-    axios.get('http://localhost:5000/book/'+this.props.match.params.id)
+    axios.get('http://localhost:5000/signin', {withCredentials:true})
+            .then(res =>{
+                /* this.setState({currentUser: res.data.bookuser1}) */
+                console.log("bookuser test")
+                console.log(res.data.bookuser1)
+            }).catch(err=>{
+              console.log(err)
+            })
+    axios.get('http://localhost:5000/book/'+this.props.match.params.id, {withCredentials:true})
       .then(res => {
         this.setState({ book: res.data })
-        console.log("bookxx");
+        console.log(this.state);
       })
       .catch((error) => {
         console.log(error);
         console.log("bookyy");
       })
+      
   }
 
-  handleSubmit(e){
-      
+  onChangequantity(e) {
+    this.quantity = e.target.value
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+
+    const cart = {
+    
+      bookid: this.props.match.params.id,
+      quantity:this.quantity
+    }
+
+    console.log(cart)
+
+    axios.post('http://localhost:5000/createcart', cart, {withCredentials:true})
+      .then(res => console.log(res.data)).catch((error) => {
+        console.log(error);
+        console.log("bookyy");
+      })
+
+    
   }
 
   
@@ -113,7 +147,16 @@ export default class createcart extends Component {
     return (
       <div>
         <h3>Logged Books</h3>
-        
+        <form className="createsform" onSubmit={this.onSubmit}>
+            <label>quantity: </label>
+                <input  type="number"
+                    required
+                    className="form-control"
+                    value={this.state.quantity}
+                    onChange={this.onChangequantity}
+                />
+                <input type="submit" value="Createcart" />
+        </form>
             {/* { this.bookList() } */}
           
         

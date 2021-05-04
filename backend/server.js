@@ -12,19 +12,20 @@ const store = new session.MemoryStore()
 const path = require('path')
 const book = require('./models/book');
 const assert = require('assert');
-
 const cart = require('./models/cart');
+let loginedid = ""
+let loggedin = false
 /* const port = process.env.PORT || 5000; */
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }))
 app.use(express.json())
 /* app.use(cors({ origin: true, credentials: true })) */
 app.use(cookieParser())
 app.use(session({
-    secret: 'something',
+    secret: 'secret',
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 800000 },
+    cookie: { maxAge: 600000 },
     store
 }))
 app.use(express.urlencoded({ extended: false }))
@@ -107,13 +108,16 @@ app.post('/login', async (req,res) =>{
       }
       else{
         if (bookusertemp) {
+          
           console.log(req.body.password + "  asdasd  " +bookusertemp.password)
           if (req.body.password === bookusertemp.password) {
               req.session.authenticated = true
               req.session.newbookuser = newbookuser
-              res.cookie('sessionID', req.session.id)
-              console.log(req.session.id)
+              res.cookie('sessionID', req.session)
+              console.log(req.session)
               res.json(req.session)
+              loginedid = bookusertemp._id
+              loggedin = true
               console.log("check1")
           } else {
               res.json({ reply: "wrong pw" })
@@ -173,22 +177,52 @@ app.get("/book/:id", async (req, res) => {
   res.json(bookdata)
 })
 
-app.post('/addcart/:id', async (req, res) => {
+app.post('/createcart', async (req, res) => {
   const quantity = req.body.quantity;
-  book.findById(req.params.id)
-  const newExercise = new Exercise({
-    username,
-    description,
-    duration,
-    date,
+  const idNum = await cart.countDocuments()
+  book.findById(req.body.bookid)
+  console.log("carting")
+  const { cookies } = req;
+  console.log(cookies.sessionID)
+  const newcart = new cart({
+    cartid: `${idNum+1}`,
+    bookid: req.body.bookid,
+    userid: loginedid,
+    quantity: req.body.quantity,
   });
-
-  newExercise.save()
-  .then(() => res.json('Exercise added!'))
+  console.log(newcart)
+  newcart.save()
+  .then(() => res.json('cart added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
+function validateCookie(req, res, next) {
+  const { cookies } = req;
+  console.log(req.sessionID)
+  console.log(cookies)
+  console.log("validateCookie")
+  
+  if ('sessionID' in cookies) {
+      next()
+      if (cookies.sessionID === req.sessionID) {
+          console.log("validateCookie2                          ")
+          next()
+      }
+  }
+}
 
+app.get('/signin', validateCookie, async (req, res) => {
+  const { cookies } = req;
+  console.log(req.session.authenticated)
+  /* const bookuser2 = await bookuser.findOne({ username: req.session.newbookuser.username })
+  console.log(bookuser2) */
+  res.json({ LoggedIn: loggedin, bookuser1: loginedid })
+})
+
+app.delete('/logout', (req, res) => {
+  req.session.destroy()
+  res.json({ message: "logout" })
+})
 
 /* app.post('/login', async (req,res) =>{
   const bookuser = new bookuser({
