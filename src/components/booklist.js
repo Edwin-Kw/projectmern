@@ -37,7 +37,7 @@ export default class booklist extends Component {
 
     this.srcvalue = ""
     this.arrival = ""
-    this.state = {books: []};
+    this.state = {books: [],title: "All Books"};
   }
 
   componentDidMount() {
@@ -50,6 +50,9 @@ export default class booklist extends Component {
       })
   }
   sortBook() {
+    /* document,getBy */
+    /* document.getElementById('titlesort').innerHTML += " (Sort By Highest Price)" */
+    this.setState({title : "All Books (Sort By Highest Price)"})
     this.setState({
       books: this.state.books.sort(function(a,b){
           var priceA = parseInt( a.Price)
@@ -122,8 +125,11 @@ export default class booklist extends Component {
   render() {
     return (
       <div>
-        <h3>Logged Books</h3>
+        <a href="/" onClick={() => { }}>Home</a>
+    
+        <h3 className = "titlesort">{this.state.title}</h3>
         <a href="#" onClick={() => { this.sortBook() }}>Sort By Highest Price</a>
+
             { this.bookList() }
           
         

@@ -132,16 +132,16 @@ app.post('/login', async (req,res) =>{
               req.session.newbookuser = newbookuser
               res.cookie('sessionID', req.session.id)
               console.log(req.session)
-              res.json(req.session)
+              res.json({ login: true, reply: "Success", session: req.session })
               loginedid = bookusertemp._id
               loggedin = true
               console.log("check1")
           } else {
-              res.json({ reply: "Wrong Password" })
+              res.json({ login: false, reply: "Wrong Password" })
               console.log("check2")
           }
       } else {
-          res.json({ reply: "no user" })
+          res.json({ login: false, reply: "User cannot be found" })
           console.log("check3")
       }
       }

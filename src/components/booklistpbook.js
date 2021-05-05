@@ -37,7 +37,7 @@ export default class booklistpbook extends Component {
 
     this.srcvalue = ""
     this.arrival = ""
-    this.state = {books: []};
+    this.state = {books: [],title: "All Picture book"};
   }
 
   componentDidMount() {
@@ -51,6 +51,7 @@ export default class booklistpbook extends Component {
       })
   }
   sortBook() {
+    this.setState({title : "All Picture book (Sort By Highest Price)"})
     this.setState({
       books: this.state.books.sort(function(a,b){
           var priceA = parseInt( a.Price)
@@ -123,7 +124,8 @@ export default class booklistpbook extends Component {
   render() {
     return (
       <div>
-        <h3>Logged Books</h3>
+        <p><a href="/" onClick={() => { }}>Home </a> &gt; <a href="/booklistpbook" onClick={() => { }}>Picture book</a></p>
+        <h3 className = "titlesort">{this.state.title}</h3>
         <a href="#" onClick={() => { this.sortBook() }}>Sort By Highest Price</a>
             { this.bookList() }
           

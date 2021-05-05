@@ -13,11 +13,12 @@ const loginbookuser = () => {
         }
         axios.post('http://localhost:5000/login',bookuser, {withCredentials:true}).then(res => {
         
-            console.log(res.data.newbookuser)
-            if(res.data.newbookuser){
+            console.log(res.data.login)
+            if(res.data.login){
                 console.log("logined")
                 console.log(res.cookies)
-                /* window.location.href= '/' */
+                window.alert(res.data.reply)
+                window.location.href= '/'
             }else{
                 window.alert(res.data.reply)
                 e.target.password.value = ''

@@ -45,12 +45,26 @@ export default class Navbar extends Component {
           <Link to="/login" className="nav-link">Sign in</Link>
           </li>
           <li className="navbar-item">
+          <Link to="/cartlist" className="nav-link">cart: {this.state.number}</Link>
+          </li>
+
+
+
+          <li className="navbar-item">
           <Link to="/" className="nav-link">booklist</Link>
           </li>
-          <li className="navbar-item">
-          <Link to="/cartlist" className="nav-link">cart: {this.state.number}</Link>
-      
+          
+          
+          {/* <li className="navbar-item">
+          <Link to="/checkoutlogged" className="nav-link">checkoutlogged</Link>
           </li>
+          <li className="navbar-item">
+          <Link to="/invoice" className="nav-link">invoice</Link>
+          </li>
+          <li className="navbar-item">
+          <Link to="/Checkoutcreate" className="nav-link">Checkoutcreate</Link>
+          </li> */}
+
           <li className="navbar-item">
           <Link to="/bookliststorybook" className="nav-link">bookliststorybook</Link>
           </li>
@@ -62,15 +76,6 @@ export default class Navbar extends Component {
           </li>
           <li className="navbar-item">
           <Link to="/booklistpbook" className="nav-link">booklistpbook</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/checkoutlogged" className="nav-link">checkoutlogged</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/invoice" className="nav-link">invoice</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/Checkoutcreate" className="nav-link">Checkoutcreate</Link>
           </li>
           
           
