@@ -46,12 +46,12 @@ const Checkoutlogged = () => {
         }
         axios.post('http://localhost:5000/checkout',checkout , {withCredentials:true}).then(res => {
         if(res.data.login === 'True'){
-            /* window.location.href ='/' */
+            window.location.href ='/invoice' 
             console.log(res.data)
         } else {
             
             console.log(res.data)
-            /* window.location.href ='/' */
+            window.location.href ='/invoice' 
         }
         }).catch(err=>{console.log(err)})
         
@@ -63,7 +63,8 @@ const Checkoutlogged = () => {
     return (
         <div className = "create-container">
             <form className="createsform" onSubmit={handleSubmit}>
-                <p>Create User </p>
+                <p>Logged User </p>
+                <h2>Delivery Address:</h2>
                 <p>Full Name: </p>
                 <input type="text" name="fullname" required/>
                 <p>Company Name: </p>

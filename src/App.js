@@ -17,6 +17,9 @@ import booklistpbook from "./components/booklistpbook";
 import createcart from "./components/createcart";
 import cartList from "./components/cartlist";
 import Checkoutlogged from "./components/Checkoutlogged";
+import invoice from "./components/invoice";
+import Checkoutcreate from "./components/Checkoutcreate";
+
 function App() {
   /* window.addEventListener('DOMContentLoaded', function() {
 
@@ -39,6 +42,9 @@ function App() {
       <Route path="/book/:id" component = {createcart}/>
       <Route path="/cartlist" exact component = {cartList}/>
       <Route path="/checkoutlogged" exact component = {Checkoutlogged}/>
+      <Route path="/invoice" exact component = {invoice}/>
+      <Route path="/Checkoutcreate" exact component = {Checkoutcreate}/>
+      
     </Router>
   );
 }

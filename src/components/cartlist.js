@@ -23,12 +23,15 @@ export default class cartlist extends Component {
 
     this.srcvalue = ""
     this.arrival = ""
+    this.link = "/Checkoutlogged"
     this.name = ""
     this.total = 0
-    this.state = {carts: [],book:[], name: "", tprice: 0};
+    this.state = {carts: [],book:[], name: "", tprice: 0, login: true , link: "/Checkoutlogged"};
   }
 
   componentDidMount() {
+    this.total = 0
+    this.link = "/Checkoutlogged"
     axios.get('http://localhost:5000/carts/')
       .then(response => {
         this.setState({ carts: response.data })
@@ -36,6 +39,19 @@ export default class cartlist extends Component {
       .catch((error) => {
         console.log(error);
       })
+    axios.get('http://localhost:5000/signin').then(response => {
+      this.setState({login: response.data.loggedIn })
+      console.log(response.data.loggedIn)
+      if (response.data.loggedIn === false){
+        console.log("bug check")
+        this.setState({link: "/Checkoutcreate" })
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
+    
   }
 
 
@@ -76,7 +92,7 @@ export default class cartlist extends Component {
   }
 
   cartList() {
-
+    this.total = 0
     return this.state.carts.map(currentcarts => {
         let name = ""
         /* this.srcvalue = "upload_image/book_"+parseInt(currentbooks.BookId)+".jpeg" */
@@ -99,7 +115,8 @@ export default class cartlist extends Component {
             
             <a href="/" >back</a>
             <br></br>
-            <a href="/Checkoutlogged" onClick={() => { this.senttotal(this.total/2) }}>Checkout</a>
+            
+            <a href={this.state.link} onClick={() => { this.senttotal(this.total) }}>Checkout</a>
         
       </div>
     )

@@ -26,10 +26,10 @@ export default class Navbar extends Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-        <Link to="/" className="navbar-brand">ExcerTracker</Link>
+        <Link to="/" className="navbar-brand">Main Page</Link>
         <div className="collpase navbar-collapse">
         <ul className="navbar-nav mr-auto">
-          <li className="navbar-item">
+          {/* <li className="navbar-item">
           <Link to="/" className="nav-link">Exercises</Link>
           </li>
           <li className="navbar-item">
@@ -37,9 +37,9 @@ export default class Navbar extends Component {
           </li>
           <li className="navbar-item">
           <Link to="/user" className="nav-link">Create User</Link>
-          </li>
+          </li> */}
           <li className="navbar-item">
-          <Link to="/createbookuser" className="nav-link">createbookuser</Link>
+          <Link to="/createbookuser" className="nav-link">Register</Link>
           </li>
           <li className="navbar-item">
           <Link to="/login" className="nav-link">Sign in</Link>
@@ -65,6 +65,12 @@ export default class Navbar extends Component {
           </li>
           <li className="navbar-item">
           <Link to="/checkoutlogged" className="nav-link">checkoutlogged</Link>
+          </li>
+          <li className="navbar-item">
+          <Link to="/invoice" className="nav-link">invoice</Link>
+          </li>
+          <li className="navbar-item">
+          <Link to="/Checkoutcreate" className="nav-link">Checkoutcreate</Link>
           </li>
           
           

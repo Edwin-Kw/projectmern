@@ -137,7 +137,7 @@ app.post('/login', async (req,res) =>{
               loggedin = true
               console.log("check1")
           } else {
-              res.json({ reply: "wrong pw" })
+              res.json({ reply: "Wrong Password" })
               console.log("check2")
           }
       } else {
@@ -233,6 +233,12 @@ app.delete("/cart/:id", async (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+app.delete("/carts", async (req, res) => {
+  cart.deleteMany()
+    .then(() => res.json('carts deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 function validateCookie(req, res, next) {
   const { cookies } = req;
   console.log(req.sessionID)
@@ -254,7 +260,7 @@ app.get('/signin', async (req, res) => {
   /* console.log(req.session.authenticated) */
   /* const bookuser2 = await bookuser.findOne({ username: req.session.newbookuser.username })
   console.log(bookuser2) */
-  res.json({ LoggedIn: loggedin, bookuser1: loginedid })
+  res.json({ loggedIn: loggedin, bookuser1: loginedid })
 })
 
 app.delete('/logout', (req, res) => {
@@ -274,7 +280,9 @@ app.get('/total', async (req,res) =>{
   res.json({ totalprice: totalprice })
 })
 
-
+app.get('/checkout', async (req,res) =>{
+  res.json({ fullname: fullname, cName: cName, Address1: Address1, Address2: Address2, city: city,RSD: RSD, country: country, zipcode: zipcode, carts: carts, totalprice: totalprice})
+})
 app.post('/checkout', async (req,res) =>{
   /* const idNum = await checkout.countDocuments() */
   /* const newcheckout = new checkout({
