@@ -13,7 +13,7 @@ const path = require('path')
 const book = require('./models/book');
 const assert = require('assert');
 const cart = require('./models/cart');
-let loginedid = " "
+let loginedid = "a"
 let loggedin = false
 
 let coid = "NA"
