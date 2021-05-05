@@ -13,7 +13,6 @@ const path = require('path')
 const book = require('./models/book');
 const assert = require('assert');
 const cart = require('./models/cart');
-const checkout = require('./models/checkout');
 let loginedid = " "
 let loggedin = false
 
@@ -65,12 +64,10 @@ mongoose
 
 const port = 5000;
 
-const exercisesRouter = require('./routes/exercises');
-const usersRouter = require('./routes/users');
+
 const { nextTick } = require('process');
 
-app.use('/exercises', exercisesRouter);
-app.use('/users', usersRouter);
+
 
 function fetchRequestCurrent(){
   console.log("books ready")
