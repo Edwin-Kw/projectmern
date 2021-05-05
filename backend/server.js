@@ -13,7 +13,7 @@ const path = require('path')
 const book = require('./models/book');
 const assert = require('assert');
 const cart = require('./models/cart');
-let loginedid = "a"
+let loginedid = " "
 let loggedin = false
 
 let coid = "NA"
@@ -196,20 +196,22 @@ app.post('/createcart', async (req, res) => {
   const idNum = await cart.countDocuments()
   const booklink = await book.findById(req.body.bookid)
   
-  const bookuserlink = await bookuser.findById(loginedid)
+  /* const bookuserlink = await bookuser.findById(loginedid) */
   console.log(booklink)
-  console.log(bookuserlink)
+  let name = " "
   /* console.log(bookuserlink) */
   console.log("carting")
   const { cookies } = req;
   console.log(cookies.sessionID)
+  
+
   const newcart = new cart({
     cartid: `${idNum+1}`,
     bookid: req.body.bookid,
     bookname:booklink.BookName,
     Price: booklink.Price,
     userid: loginedid,
-    username: bookuserlink.username,
+    username: name,
     quantity: req.body.quantity,
   });
   console.log(newcart)
