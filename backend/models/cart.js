@@ -9,7 +9,16 @@ const cartSchema = new Schema({
   bookid: {
     type: String,
   },
+  bookname: {
+    type: String,
+  },
+  Price: {
+    type: Number,
+  },
   userid: {
+    type: String,
+  },
+  username: {
     type: String,
   },
   quantity: {

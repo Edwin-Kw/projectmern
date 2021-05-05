@@ -13,7 +13,7 @@ const path = require('path')
 const book = require('./models/book');
 const assert = require('assert');
 const cart = require('./models/cart');
-let loginedid = ""
+let loginedid = " "
 let loggedin = false
 /* const port = process.env.PORT || 5000; */
 
@@ -113,7 +113,7 @@ app.post('/login', async (req,res) =>{
           if (req.body.password === bookusertemp.password) {
               req.session.authenticated = true
               req.session.newbookuser = newbookuser
-              res.cookie('sessionID', req.session)
+              res.cookie('sessionID', req.session.id)
               console.log(req.session)
               res.json(req.session)
               loginedid = bookusertemp._id
@@ -180,20 +180,40 @@ app.get("/book/:id", async (req, res) => {
 app.post('/createcart', async (req, res) => {
   const quantity = req.body.quantity;
   const idNum = await cart.countDocuments()
-  book.findById(req.body.bookid)
+  const booklink = await book.findById(req.body.bookid)
+  
+  const bookuserlink = await bookuser.findById(loginedid)
+  console.log(booklink)
+  console.log(bookuserlink)
+  /* console.log(bookuserlink) */
   console.log("carting")
   const { cookies } = req;
   console.log(cookies.sessionID)
   const newcart = new cart({
     cartid: `${idNum+1}`,
     bookid: req.body.bookid,
+    bookname:booklink.BookName,
+    Price: booklink.Price,
     userid: loginedid,
+    username: bookuserlink.username,
     quantity: req.body.quantity,
   });
   console.log(newcart)
   newcart.save()
   .then(() => res.json('cart added!'))
   .catch(err => res.status(400).json('Error: ' + err));
+});
+
+app.get("/carts", async (req, res) => {
+  const cartdata = await cart.find()
+  /* console.log(bookdata) */
+  res.json(cartdata)
+})
+
+app.delete("/cart/:id", async (req, res) => {
+  cart.findByIdAndDelete(req.params.id)
+    .then(() => res.json('cart deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 function validateCookie(req, res, next) {
@@ -211,9 +231,10 @@ function validateCookie(req, res, next) {
   }
 }
 
-app.get('/signin', validateCookie, async (req, res) => {
+
+app.get('/signin', async (req, res) => {
   const { cookies } = req;
-  console.log(req.session.authenticated)
+  /* console.log(req.session.authenticated) */
   /* const bookuser2 = await bookuser.findOne({ username: req.session.newbookuser.username })
   console.log(bookuser2) */
   res.json({ LoggedIn: loggedin, bookuser1: loginedid })

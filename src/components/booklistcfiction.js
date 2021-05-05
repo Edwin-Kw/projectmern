@@ -31,7 +31,7 @@ const Book = props => (
   
 )
 
-export default class booklist extends Component {
+export default class booklistcfiction extends Component {
   constructor(props) {
     super(props);
 
@@ -43,7 +43,8 @@ export default class booklist extends Component {
   componentDidMount() {
     axios.get('http://localhost:5000/books/')
       .then(response => {
-        this.setState({ books: response.data })
+        this.setState({ books: response.data.filter(catebook => catebook.Category === 'Contemporary Fiction') })
+
       })
       .catch((error) => {
         console.log(error);
