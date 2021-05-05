@@ -33,14 +33,15 @@ const loginbookuser = () => {
             <form className="createsform" onSubmit={handleSubmit}>
                 <p>Login in </p>
                 <p>Username: </p>
-                <input type="text" name="username" required/>
+                <input type="text" placeholder="Desired Username" name="username" required/>
                 <p>Password: </p>
-                <input type="text" name="password" required/>
+                <input type="text" placeholder="Desired Password" name="password" required/>
                 <button type="submit" >Submit</button>
                 <Link to ='/createbookuser'>
                     <button className="btn" >Create</button>
                 </Link>
             </form>
+            
 
         </div>
     )

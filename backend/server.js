@@ -102,10 +102,10 @@ app.post('/createbookuser', async (req,res) =>{
   console.log("test")
   console.log(bookusertemp)
   if (bookusertemp){
-    res.json({login: "False", reply: "overlap"})
+    res.json({login: false, reply: "Account already existed"})
   } else {
     console.log("test2")
-    newbookuser.save().then(data =>{res.json({login: "True", reply: "login success"})}).catch(err =>{res.json({reply: err})})
+    newbookuser.save().then(data =>{res.json({login: true, reply: "Account created! Welcome"})}).catch(err =>{res.json({reply: err})})
   }
 
 })

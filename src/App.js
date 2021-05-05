@@ -20,6 +20,7 @@ import Checkoutlogged from "./components/Checkoutlogged";
 import invoice from "./components/invoice";
 import Checkoutcreate from "./components/Checkoutcreate";
 import Logout from "./components/logout";
+import booklistsearch from "./components/booklistsearch";
 
 function App() {
   /* window.addEventListener('DOMContentLoaded', function() {
@@ -46,6 +47,7 @@ function App() {
       <Route path="/invoice" exact component = {invoice}/>
       <Route path="/Checkoutcreate" exact component = {Checkoutcreate}/>
       <Route path="/logout"  component = {Logout}/>
+      <Route path="/booklistsearch/:id" component = {booklistsearch}/>
       
       
     </Router>

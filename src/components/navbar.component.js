@@ -9,7 +9,10 @@ export default class Navbar extends Component {
     this.arrival = ""
     this.name = ""
     this.total = 0
-    this.state = {carts: [],book:[], name: "", tprice: 0, number: 0};
+    this.quantity = ""
+    this.state = {carts: [],book:[], name: "", tprice: 0, number: 0, quantity:""};
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChangequantity = this.onChangequantity.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +26,39 @@ export default class Navbar extends Component {
       })
   }
 
+  onChangequantity(e) {
+    this.setState({quantity :e.target.value})
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    
+    window.location.href= '/booklistsearch/'+this.state.quantity
+
+    /* axios.get('http://localhost:5000/books', {withCredentials:true})
+      .then(res => {
+        console.log(res.data)
+        window.location.href= '/'
+      }).catch((error) => {
+        console.log(error);
+        console.log("bookyy");
+      }) */
+    
+    
+  }
   render() {
     return (
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
         <Link to="/" className="navbar-brand">Main Page</Link>
+        <form className="createsform" onSubmit={this.onSubmit}>
+            <label></label>
+                <input  type="text"
+                    required
+                    placeholder="Keyword(s)"
+                    onChange={this.onChangequantity}
+                />
+                <input type="submit" value="Search" />
+        </form>
         <div className="collpase navbar-collapse">
         <ul className="navbar-nav mr-auto">
           {/* <li className="navbar-item">
@@ -51,13 +83,14 @@ export default class Navbar extends Component {
           <Link to="/logout" className="nav-link">Logout</Link>
           </li>
           
-
-
+          </ul>
+          <ul>
           <li className="navbar-item">
-          <Link to="/" className="nav-link">booklist</Link>
+          <Link to="/" className="nav-link">Home Page</Link>
           </li>
-          
-          
+          </ul>
+          <h2>Category</h2>
+          <ul>
           {/* <li className="navbar-item">
           <Link to="/checkoutlogged" className="nav-link">checkoutlogged</Link>
           </li>
@@ -84,6 +117,7 @@ export default class Navbar extends Component {
           
         </ul>
         </div>
+        <br></br>
       </nav>
     );
   }
