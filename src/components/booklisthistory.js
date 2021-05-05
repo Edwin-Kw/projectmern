@@ -15,14 +15,15 @@ import Image11 from './upload_image/book_11.jpeg';
 import Image12 from './upload_image/book_12.jpg';
 const Book = props => (
     <ul>
+        <li><Link to={"/book/"+props.books._id}>{props.books.BookName}</Link></li>
         <img src={props.srclink}></img>
         {/* <li>{props.srclink}</li> */}
         <span>{props.spanArrive}</span>
-        <li>BookName: {props.books.BookName}</li>
+        
         <li>Author: {props.books.Author}</li>
         <li>Publisher: {props.books.Publisher}</li>
         <li>Price: ${props.books.Price}</li>
-        <li>NewArrival: {props.books.["New Arrival"]}</li>
+        
         <Link to={"/book/"+props.books._id}>add to cart</Link>
     </ul>
     /* 

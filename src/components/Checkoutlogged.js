@@ -63,7 +63,7 @@ const Checkoutlogged = () => {
     return (
         <div className = "create-container">
             <form className="createsform" onSubmit={handleSubmit}>
-                <p>Logged User </p>
+                <br></br>
                 <h2>Delivery Address:</h2>
                 <p>Full Name: </p>
                 <input type="text" name="fullname" required/>

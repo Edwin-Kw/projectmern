@@ -47,7 +47,10 @@ export default class Navbar extends Component {
           <li className="navbar-item">
           <Link to="/cartlist" className="nav-link">cart: {this.state.number}</Link>
           </li>
-
+          <li className="navbar-item">
+          <Link to="/logout" className="nav-link">Logout</Link>
+          </li>
+          
 
 
           <li className="navbar-item">

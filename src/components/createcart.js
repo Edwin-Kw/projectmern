@@ -128,11 +128,12 @@ export default class createcart extends Component {
     console.log(cart)
 
     axios.post('http://localhost:5000/createcart', cart, {withCredentials:true})
-      .then(res => console.log(res.data)).catch((error) => {
+      .then(res => {console.log(res.data)
+        window.location.href= '/'}).catch((error) => {
         console.log(error);
         console.log("bookyy");
       })
-
+    
     
   }
 

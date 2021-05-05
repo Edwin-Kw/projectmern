@@ -19,6 +19,7 @@ import cartList from "./components/cartlist";
 import Checkoutlogged from "./components/Checkoutlogged";
 import invoice from "./components/invoice";
 import Checkoutcreate from "./components/Checkoutcreate";
+import Logout from "./components/logout";
 
 function App() {
   /* window.addEventListener('DOMContentLoaded', function() {
@@ -44,6 +45,8 @@ function App() {
       <Route path="/checkoutlogged" exact component = {Checkoutlogged}/>
       <Route path="/invoice" exact component = {invoice}/>
       <Route path="/Checkoutcreate" exact component = {Checkoutcreate}/>
+      <Route path="/logout"  component = {Logout}/>
+      
       
     </Router>
   );
