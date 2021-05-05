@@ -16,6 +16,7 @@ import bookListhistory from "./components/booklisthistory";
 import booklistpbook from "./components/booklistpbook";
 import createcart from "./components/createcart";
 import cartList from "./components/cartlist";
+import Checkoutlogged from "./components/Checkoutlogged";
 function App() {
   /* window.addEventListener('DOMContentLoaded', function() {
 
@@ -37,6 +38,7 @@ function App() {
       <Route path="/booklistpbook" exact component = {booklistpbook}/>
       <Route path="/book/:id" component = {createcart}/>
       <Route path="/cartlist" exact component = {cartList}/>
+      <Route path="/checkoutlogged" exact component = {Checkoutlogged}/>
     </Router>
   );
 }

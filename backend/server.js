@@ -13,8 +13,25 @@ const path = require('path')
 const book = require('./models/book');
 const assert = require('assert');
 const cart = require('./models/cart');
+const checkout = require('./models/checkout');
 let loginedid = " "
 let loggedin = false
+
+let coid = "NA"
+let fullname = "NA"
+let cName =  "NA"
+let Address1 ="NA"
+let Address2 ="NA"
+let city = "NA"
+let RSD = "NA"
+let country = "NA"
+let zipcode ="NA"
+let carts = []
+let totalprice = 0
+
+
+
+
 /* const port = process.env.PORT || 5000; */
 
 app.use(cors({ origin: true, credentials: true }))
@@ -242,9 +259,69 @@ app.get('/signin', async (req, res) => {
 
 app.delete('/logout', (req, res) => {
   req.session.destroy()
+  loginedid = " "
+  loggedin = false
   res.json({ message: "logout" })
 })
 
+app.post('/total', async (req,res) =>{
+  totalprice = req.body.total
+  console.log(req.body.total)
+})
+
+app.get('/total', async (req,res) =>{
+  console.log(totalprice)
+  res.json({ totalprice: totalprice })
+})
+
+
+app.post('/checkout', async (req,res) =>{
+  /* const idNum = await checkout.countDocuments() */
+  /* const newcheckout = new checkout({
+    coid: `${idNum+1}`,
+    fullname: req.body.fullname,
+    cName: req.body.cName,
+    Address1: req.body.Address1,
+    Address2: req.body.Address2,
+    city: req.body.city,
+    RSD: req.body.RSD,
+    country: req.body.country,
+    zipcode: req.body.zipcode,
+    carts: req.body.carts,
+    totalprice: req.body.totalprice,
+  }) */
+  /* newcheckout.save().then(data =>{res.json({login: "True", reply: "login success"})}).catch(err =>{res.json({reply: err})}) */
+  if (req.body.fullname){
+    fullname = req.body.fullname
+  }
+  if (req.body.cName){
+    cName =  req.body.cName
+  }
+  if (req.body.Address1){
+    Address1 = req.body.Address1
+  }
+  if(req.body.Address2){
+    Address2 =req.body.Address2
+  }
+  if (req.body.city){
+    city = req.body.city
+  }
+  if(req.body.RSD){
+    RSD = req.body.RSD
+  }
+  if (req.body.country){
+    country = req.body.country
+  }
+  if (req.body.zipcode){
+    zipcode =req.body.zipcode
+  }
+  if (req.body.carts){
+    carts =req.body.carts
+  }
+  res.json({login: carts, reply: carts})
+  
+
+})
 /* app.post('/login', async (req,res) =>{
   const bookuser = new bookuser({
     name: req.body.name,

@@ -63,6 +63,10 @@ export default class Navbar extends Component {
           <li className="navbar-item">
           <Link to="/booklistpbook" className="nav-link">booklistpbook</Link>
           </li>
+          <li className="navbar-item">
+          <Link to="/checkoutlogged" className="nav-link">checkoutlogged</Link>
+          </li>
+          
           
         </ul>
         </div>

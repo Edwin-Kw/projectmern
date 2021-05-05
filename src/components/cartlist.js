@@ -63,6 +63,17 @@ export default class cartlist extends Component {
     })
   }
   
+  senttotal(money) {
+    const totalvalue = {
+        total: money
+    }
+    axios.post('http://localhost:5000/total', totalvalue)
+      .then(response => { console.log(response.data).catch((error) => {
+        console.log(error);
+        console.log("bookyy");
+      })});
+
+  }
 
   cartList() {
 
@@ -87,6 +98,8 @@ export default class cartlist extends Component {
             <p>Total Price: {this.total}</p>
             
             <a href="/" >back</a>
+            <br></br>
+            <a href="/Checkoutlogged" onClick={() => { this.senttotal(this.total/2) }}>Checkout</a>
         
       </div>
     )
